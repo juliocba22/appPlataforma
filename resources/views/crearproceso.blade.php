@@ -2,7 +2,7 @@
 		
 		@section("wrapper")
 <div class="row">
-    <div class="col-xl-9 mx-auto">
+    <div class="col-xl-5 mx-auto">
      
         <div class="card border-top border-0 border-4 border-info">
             <div class="card-body">
@@ -17,7 +17,7 @@
                     {{ csrf_field() }}
                         <div class="row mb-3">
                             <label for="inputEnterYourName" class="col-sm-3 col-form-label">Ingrese Nro. Radicacion</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-4">
                                 <input type="text" class="form-control"   name="inputNumero" placeholder="Numero de radicacon">
                             </div>
                         </div>
@@ -28,19 +28,6 @@
                             </div>
                         </div>
                     </form>
-                    <div class="row mb-3">
-                        <label for="inputPhoneNo2" class="col-sm-3 col-form-label">Phone No</label>
-                        <div class="col-sm-9">
-                            @if(isset($enviarproceso))
-                            <input type="text" class="form-control" id="inputPhoneNo2" placeholder="Phone No" 
-                                                      value="{{ $enviarproceso->idConexion}}">
-                           @else
-                           
-                                <input type="text" class="form-control" id="inputPhoneNo2" placeholder="Phone No" >
-                            @endif
-                        </div>
-                    </div>
-                    
                     
                 </div>
             </div>

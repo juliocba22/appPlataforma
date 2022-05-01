@@ -85,7 +85,11 @@
                                             <div class="d-flex align-items-center">
                                                 
                                                 <div class="">
-                                                    <img src="{{ asset('usuarios/'.$usuario->imagen) }}" class="rounded-circle" width="40" height="40" alt="">
+													@if ($usuario->imagen)
+													<img src="{{ asset('usuarios/'.$usuario->imagen) }}" class="rounded-circle" width="40" height="40" alt="">
+													@else
+													<img src="{{ asset('usuarios/perfil.png') }}" class="rounded-circle" width="40" height="40" alt="">
+													@endif
                                                 </div>
                                                 <div class="ms-2">
                                                     <h6 class="mb-0 font-14">{{  $usuario->name}}</h6>

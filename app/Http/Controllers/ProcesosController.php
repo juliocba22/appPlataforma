@@ -24,6 +24,7 @@ class ProcesosController extends Controller
             
             ->get();
         }else{
+           // dd(auth()->user()->id);
             $procesos = DB::table('procesos')
             ->where('user_id','=',auth()->user()->id)
             ->get();
@@ -120,16 +121,49 @@ class ProcesosController extends Controller
     function store( Request $request){
         
       //dd($request->get('inputNumero'));
-
+      $validate = $this->validate($request , [
+        'inputNumero'=>'required|min:23|max:23'      
+  ]);
       $client = new Client([
         // Base URI is used with relative requests
         'base_uri' => 'https://consultaprocesos.ramajudicial.gov.co:448',
         // You can set any number of default request options.
         'timeout'  => 50.0,
     ]);
-
+try{
     $response = $client->request('GET', '/api/v2/Procesos/Consulta/NumeroRadicacion?numero='.$request->inputNumero.'&SoloActivos=false');
-//dd($response);
+}catch(Guzzle\Http\Exception\RequestException   $e)
+{
+    $req = $e->getRequest();
+     $resp =$e->getResponse();
+     Session::flash('error',' No Se registro su persona con exito');
+       //dd($enviarproceso);
+       return redirect()->to('crearproceso');
+}
+catch (Guzzle\Http\Exception\ServerErrorResponseException $e) {
+
+    $req = $e->getRequest();
+    $resp =$e->getResponse();
+    Session::flash('error',' No Se registro su persona con exito');
+    //dd($enviarproceso);
+    return redirect()->to('crearproceso');
+}
+catch (Guzzle\Http\Exception\BadResponseException $e) {
+
+    $req = $e->getRequest();
+    $resp =$e->getResponse();
+    Session::flash('error',' No Se registro su persona con exito');
+    //dd($enviarproceso);
+    return redirect()->to('crearproceso');
+}
+catch( Exception $e){
+    Session::flash('error',' No Se registro su persona con exito');
+    //dd($enviarproceso);
+    return redirect()->to('crearproceso');
+}
+      
+
+
   
  
     if($response){
@@ -152,12 +186,6 @@ class ProcesosController extends Controller
         
         $proceso->depaprtamento =  $nuevo["procesos"][0]["departamento"];
     }
-
-      
-    
-
-
-
     $proceso->save();
 
     $enviarproceso =  Proceso::select("*")->latest()->first();

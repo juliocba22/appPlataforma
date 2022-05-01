@@ -17,7 +17,7 @@
                     </div>
                     <hr/>
                     <div class="row mb-3">
-                        <label for="inputEnterYourName" class="col-sm-3 col-form-label">Usuario</label>
+                        <label for="inputEnterYourName" class="col-sm-3 col-form-label">Nombres y Apellidos</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="name" name="name"  placeholder="Ingrese Apellido y Nombres">
                         </div>

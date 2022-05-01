@@ -110,33 +110,53 @@
 		<script type="text/javascript">
 			$('#fecini').on('keyup',function(e){
 				if(e.keyCode==13){
-					if(!($(this).val()) && !$('#fecfin').val()){
-                        console.log("PASO1");
-                        window.location.href="{{ route('detalle.procesos') }}" ;
+                    console.log('INICIO');
+                    let fiisValidDate = Date.parse($(this).val());
+                    let fiisValidDate1 = Date.parse($('#fecfin').val());
+
+                    if (isNaN(fiisValidDate) || isNaN(fiisValidDate1)) {
+                        console.log("FAKSE");
                     }else{
-                        console.log("PASO2");
-                        window.location.href="{{ route('detalle.procesos') }}?fecini=" +$(this).val()+"$fecfin="+$('#fecfin').val();
+                    id = $('#id').val();
+                        if(!($(this).val()) && !$('#fecfin').val()){
+                            console.log("PASO1");
+                            window.location.href="{{ route('detalle.procesos') }}" ;
+                        }else{
+                            console.log("PASO2");
+                            window.location.href="{{ route('detalle.procesos') }}/"+ $('#id').val() +"?fecini=" +$(this).val()+"$fecfin="+$('#fecfin').val();
+                            
+                        }
                     }
-					
 				}
 			})
 
 			$('#fecfin').on('keyup',function(e){
 				if(e.keyCode==13){
-					console.log($(this).val());
-					
-                    if(!$(this).val() && !$('#fecini').val()){
-                        console.log("PASO3");
-                        window.location.href="{{ route('detalle.procesos') }}" ;
+                    console.log('FIN');
+				//	console.log(typeof (this));
+                  //  var date_regex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+                  let isValidDate = Date.parse($(this).val());
+                  let isValidDate1 = Date.parse($('#fecini').val());
+ 
+                    if (isNaN(isValidDate) || isNaN(isValidDate1)) {
+                        console.log("FAKSE");
                     }else{
-                        console.log("PASO4");
-                        id = $('#id').val();
-                        window.location.href="{{ route('detalle.procesos') }}/"+ $('#id').val() +"?fecini=" +$('#fecini').val()+"&fecfin="+$(this).val();
-                    }    
-                
-                }
-			})
+                        if(!$(this).val() && !$('#fecini').val() ){
 
+                            
+                            console.log("PASO3");
+                         window.location.href="{{ route('detalle.procesos') }}" ;
+                        }else{
+                            console.log("PASO4");
+                            id = $('#id').val();
+                          window.location.href="{{ route('detalle.procesos') }}/"+ $('#id').val() +"?fecini=" +$('#fecini').val()+"&fecfin="+$(this).val();
+                          
+                        }    
+                    }
+                }
+			});
+
+            
             $('#lista > li').on('click','a',function(e){
 				if(e.keyCode==13){
 					console.log($(this).val());
@@ -150,7 +170,7 @@
                     }    
                 
                 }
-			})
+			});
 
             $("#lista > li").click(function() {
              

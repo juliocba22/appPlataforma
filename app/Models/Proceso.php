@@ -10,10 +10,10 @@ class Proceso extends Model
     protected $table = "procesos";
     protected $primaryKey = "id";
 
-    public $timestamps =false;
+    public $timestamps =true;
 
     protected $fillable = ['user_id','email','llaveProceso','idProceso','idConexion','fechaProceso','fechaUltimaActuacion',
-                            'fechaNotificacion','despacho','depaprtamento','sujetosProcesales'];
+                            'fechaNotificacion','despacho','depaprtamento','sujetosProcesales','fechabaja'];
 
     protected $guarded=[];
 }

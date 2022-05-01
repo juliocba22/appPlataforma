@@ -20,7 +20,7 @@
                     </div>
                     <hr/>
                     <div class="row mb-3">
-                        <label for="inputEnterYourName" class="col-sm-3 col-form-label">Usuario</label>
+                        <label for="inputEnterYourName" class="col-sm-3 col-form-label">Nombres y Apellidos</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" value="{{ $usuario->name }}"  placeholder="Ingrese Apellido y Nombres">
                             @if ($errors->has('name'))
@@ -33,7 +33,7 @@
                     <div class="row mb-3">
                         <label for="inputEmailAddress2" class="col-sm-3 col-form-label">Email </label>
                         <div class="col-sm-9">
-                            <input type="email" id="email" name="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ $usuario->email }}"   placeholder="Ingrese Email">
+                            <input type="email" id="email" disabled="true" name="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ $usuario->email }}"   placeholder="Ingrese Email">
                             @if ($errors->has('email'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('email') }}</strong>
@@ -44,7 +44,7 @@
                     <div class="row mb-3">
                         <label for="inputPhoneNo2" class="col-sm-3 col-form-label">Password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password"  value="{{ $usuario->password }}" placeholder="Ingrese password">
+                            <input type="password"  disabled="true" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password"  value="{{ $usuario->password }}" placeholder="Ingrese password">
                             @if ($errors->has('password'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('password') }}</strong>

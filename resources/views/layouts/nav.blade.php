@@ -42,7 +42,7 @@
                                     <li> <a class=" " href="{{ route('index.procesos') }}"><i class="bx bx-archive-out"></i>Activos</a>
                                         
                                     </li>
-                                    <li> <a class=" " href="javascript:;"><i class="bx bx-cabinet"></i>Archivados</a>
+                                    <li> <a class=" " href="{{ route('indexarchivados.proceso') }}"><i class="bx bx-cabinet"></i>Archivados</a>
                                         
                                     </li>
                                 </ul>
@@ -78,19 +78,19 @@
                         <ul>
                             <li> <a class="has-arrow" href="javascript:;"><i class="bx bx-folder-open"></i>Judiciales</a>
                                 <ul>
-                                    <li> <a class=" " href="javascript:;"><i class="bx bx-file-blank"></i>Procesos registrados</a>
+                                    <li> <a class=" " href="{{ route('index.reportprocesos') }}"><i class="bx bx-file-blank"></i>Procesos registrados</a>
                                         
                                     </li>
                                     <li> <a class=" " href="javascript:;"><i class="bx bx-file-blank"></i>Notificaciones Judiciales</a>
                                         
                                     </li>
-                                    <li> <a class=" " href="javascript:;"><i class="bx bx-file-blank"></i>Procesos Eliminados</a>
+                                    <li> <a class=" " href="{{ route('index.reporteliminados') }}"><i class="bx bx-file-blank"></i>Procesos Eliminados</a>
                                         
                                     </li>
                                 </ul>
                             </li>
                         </ul>
-                        <ul>
+                        <!--ul>
                             <li> <a class="has-arrow" href="javascript:;"><i class="bx bx-folder-open"></i>Supersociedades</a>
                                 <ul>
                                     <li> <a class=" " href="javascript:;"><i class="bx bx-file-blank"></i>Procesos registrados</a>
@@ -102,7 +102,7 @@
                                     
                                 </ul>
                             </li>
-                        </ul>
+                        </ul-->
                     </li>
                     <li>
                     

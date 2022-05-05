@@ -84,16 +84,22 @@ Route::get('admin/perfil','App\Http\Controllers\UsuariosController@perfil')->nam
 Route::patch('admin/perfil/{id}','App\Http\Controllers\UsuariosController@updatePerfil')->name('update.perfil');
 
 /*Procesos */
-Route::get('procesos','App\Http\Controllers\ProcesosController@index')->name('index.procesos');
+Route::get('admin/procesos','App\Http\Controllers\ProcesosController@index')->name('index.procesos');
 Route::get('detalle/{id?}/{fecini?/{fecfin?}','App\Http\Controllers\ProcesosController@verDetalle')->name('detalle.procesos');
 Route::get('crearproceso','App\Http\Controllers\ProcesosController@create')->name('create.proceso');
 Route::post('guardarproceso','App\Http\Controllers\ProcesosController@store')->name('store.proceso');
+Route::delete('admin/proceso/{id}','App\Http\Controllers\ProcesosController@destroy')->name('destroy.proceso');
+Route::get('admin/procesoarchivados','App\Http\Controllers\ProcesosController@indexarchivados')->name('indexarchivados.proceso');
+
+Route::get('admin/archivar/{id?}','App\Http\Controllers\ProcesosController@archivar')->name('archivar.proceso');
+Route::get('admin/activar/{id?}','App\Http\Controllers\ProcesosController@activar')->name('activar.proceso');
 /*Route::get('admin/blog/{id}','BlogController@edit')->name('edit.blog');
 Route::patch('admin/blog/{id}','BlogController@update')->name('update.blog');
 Route::delete('admin/blog/{id}','BlogController@destroy')->name('destroy.blog');
 */
-
-
+/*Reportes */
+Route::get('admin/reportes/procesos','App\Http\Controllers\ReportesController@index')->name('index.reportprocesos');
+Route::get('admin/reportes/eliminados','App\Http\Controllers\ReportesController@indexeliminados')->name('index.reporteliminados');
 /*Contactos */
 Route::get('contactos','App\Http\Controllers\ContactosController@index')->name('index.contactos');
 Route::get('contactos/crear','App\Http\Controllers\ContactosController@create')->name('create.contacto');
@@ -106,7 +112,9 @@ Route::delete('contactos/{id}','App\Http\Controllers\ContactosController@destroy
 
 Route::get('/dashboard-alternate', 'App\Http\Controllers\DashboardController@index')->name('dashboard-alternate');
 
-
+Route::get('/form-layouts', function () {
+    return view('form-layouts');
+});
 /*
 Route::get('/contactos', function () {
     return view('contactos');

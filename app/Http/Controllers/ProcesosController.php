@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Proceso;
 use App\Models\Processes;
-
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Input;
 use Session;
@@ -21,12 +21,17 @@ class ProcesosController extends Controller
  
         if(auth()->user()->id===1){
             $procesos = DB::table('procesos')
-            
+            ->whereNull ('fechabaja')
+            ->where('activo','=','0')
+            ->orwhereNull('activo')
             ->get();
         }else{
            // dd(auth()->user()->id);
             $procesos = DB::table('procesos')
             ->where('user_id','=',auth()->user()->id)
+            ->whereNull('fechabaja')
+            ->where('activo','=','0')
+            ->orwhere('activo')
             ->get();
         }
         
@@ -40,22 +45,46 @@ class ProcesosController extends Controller
             
         }
         
+        return view ('admin.procesos.index' , compact('procesos'));
+    }
 
+    public function indexarchivados(Request $request){
+ 
+        if(auth()->user()->id===1){
+            $procesos = DB::table('procesos')
+            ->where('activo','=',1)
+            
+            ->get();
+        }else{
+           // dd(auth()->user()->id);
+            $procesos = DB::table('procesos')
+            ->where('user_id','=',auth()->user()->id)
+            ->where('activo','=',1)
+            ->get();
+        }
+        
+      
 
-        //dd($usuarios);
-        return view ('procesos_activos' , compact('procesos'));
+        if((isset($request->limit))){
+           
+           $procesos = $procesos->where('llaveProceso','like',$request->limit);
+            
+        }
+        
+
+        return view ('admin.procesos.indexarchivados' , compact('procesos'));
     }
 
     function create(){
 
         //dd('llego');
-        return view('crearproceso');
+        return view('admin.procesos.create');
     }
 
     public function verDetalle(Request $request ){
        $id  = $request->id;
        $data = [];
-     //  dd($request->id);
+      //dd($request->id);
         $client = new Client([
             // Base URI is used with relative requests
             'base_uri' => 'https://consultaprocesos.ramajudicial.gov.co:448',
@@ -114,7 +143,7 @@ class ProcesosController extends Controller
         //$detalle = $nuevo['actuaciones'][0];
      //   dd($data);
    
-        return view ('procesodetalle' , compact('data','id' ));
+        return view ('admin.procesos.detalle' , compact('data','id' ));
     
     }
 
@@ -193,7 +222,56 @@ catch( Exception $e){
      
       Session::flash('succes','Se registro su persona con exito');
        //dd($enviarproceso);
-       return redirect()->to('procesos');
+       return redirect()->to('admin/procesos');
 
     }
+
+    function destroy($id){
+        $date = Carbon::now();
+        $proceso = Proceso::findOrFail($id);
+        $proceso->fechabaja=Carbon::now();
+
+       // dd($proceso);
+       $proceso->update();
+       Session::flash('succes','Se eliminio su proceso con exito');
+       
+       return redirect()->to('admin/procesos');
+
+   }
+
+
+   function archivar(Request $request){
+       //dd($request->id);
+    $date = Carbon::now();
+    $proceso = Proceso::findOrFail($request->id);
+   // dd($proceso);
+    $proceso->activo=1;
+
+   // dd($proceso);
+   $proceso->update();
+
+      //dd($proceso);
+   Session::flash('succes','Se Archivo su proceso con exito');
+
+   return redirect()->to('admin/procesos');
+
+}
+
+function activar(Request $request){
+    //dd($request->id);
+ $date = Carbon::now();
+ $proceso = Proceso::findOrFail($request->id);
+// dd($proceso);
+ $proceso->activo=0;
+
+// dd($proceso);
+$proceso->update();
+
+   //dd($proceso);
+Session::flash('succes','Se activo su proceso con exito');
+
+return redirect()->to('admin/procesos');
+
+}
+
 }

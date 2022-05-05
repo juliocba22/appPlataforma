@@ -6,7 +6,7 @@
 			<div class="page-content">
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">Procesos Activos</div>
+					<div class="breadcrumb-title pe-3">Procesos Archivados</div>
 					<!--div class="ps-3">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
@@ -51,7 +51,7 @@
 								<input class="form-control me-2" id="limit" name="limit" type="search" placeholder="Search" aria-label="Search"
 								value="{{ (isset($_GET['search'])) ? $_GET['search']: ''}}">
 							</div>
-						  <div class="ms-auto"><a href="{{ route('create.proceso') }}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Nuevo Proceso</a></div>
+						  <!--div class="ms-auto"><a href="{{ route('create.proceso') }}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Nuevo Proceso</a></div-->
 						</div>
 						<div class="table-responsive">
 							<table id="quiztable1" class="table mb-0">
@@ -60,8 +60,7 @@
 										<th>Nro. Radicacion</th>
 										<th>Fecha de Radicación</th>
 										<th>Ultima Actualizacion</th>
-									 
-                                        <th>Detalle</th>
+									  
 										<th>Actions</th>
 									</tr>
 								</thead>
@@ -73,9 +72,7 @@
 									<tr>
 										<td>
 											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
+												 
 												<div class="ms-2">
 													<h6 class="mb-0 font-14">{{  $proceso->llaveProceso}}</h6>
 												</div>
@@ -84,17 +81,16 @@
 										<td>{{ $proceso->fechaProceso }}</td>
 										<td>{{ $proceso->fechaUltimaActuacion }}</td>
 									 
-                                       
-										<td>
-											<button id="verDetalle" type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="openDetalle({{ $proceso->idProceso }});" >
-											Ver Detalle</button></td>
-										<td>
+                                       <td>
+									 
 											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
+												<button id="activar" type="button" class="" onclick="activar({{ $proceso->id }});" >
+													<i class='bx bxs-archive' data-bs-toggle="tooltip" data-bs-placement="top" title="Activar"></i></button>
+												<a class="" href=""  data-bs-toggle="modal" data-bs-target="#modal-{{$proceso->id}}" ><i class='bx bxs-trash' data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"></i></a>
 											</div>
 										</td>
 									</tr>
+									@include('admin.procesos.modal')
 									@endforeach
 								</tbody>
 							</table>
@@ -116,10 +112,10 @@
 				}
 			})
 
-			function openDetalle( id){
-				console.log( id.toString() + ' -- ' + id);
+			function activar( id){
+				//console.log( id.toString() + ' -- ' + id);
 				 
-				 	window.location.href="{{ route('detalle.procesos') }}?id=" +id;
+				 	window.location.href="{{ route('activar.proceso') }}?id=" +id;
 			 
 			}
 

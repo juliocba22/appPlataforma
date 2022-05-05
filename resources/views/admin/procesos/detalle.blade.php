@@ -10,31 +10,7 @@
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
 					<div class="breadcrumb-title pe-3">Proceso Detalle</div>
-					<!--div class="ps-3">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb mb-0 p-0">
-								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-								</li>
-								<li class="breadcrumb-item active" aria-current="page">Orders</li>
-							</ol>
-						</nav>
-					</div>
-					<div class="ms-auto">
-						<div class="btn-group">
-							<ul class="ul-dropdown">
-                                <li class="firstli" >
-                                   <i
-                                      class="material-icons">settings</i><a href="#">ACTION</a>
-                                   <ul id="ActDetalle" >
-                                      <li><a href="#">Export CSV</a></li>
-                                      <li><a href="#">Export Excel</a></li>
-                                      <li><a href="#">Export PDF</a></li>
-                                      <li><a href="#">Print</a></li>
-                                   </ul>
-                                </li>
-                             </ul>
-						</div>
-					</div-->
+					<a  class="btn btn-info px-5" href="{{ route('index.procesos') }}" type="button">Volver </a>
 				</div>
 				<!--end breadcrumb-->
 			  
@@ -48,7 +24,7 @@
                                 <div class="d-lg-flex align-items-left mb-4 gap-3">
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="material-icons">Acciones</i> 
+                                            <i class="material-icons">Exportar</i> 
                                         </button>
                                         <ul id="lista" class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                                         <li><a class="dropdown-item active" href="#">CSV</a></li>

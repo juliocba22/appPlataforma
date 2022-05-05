@@ -29,7 +29,7 @@ class LoginController extends Controller
      */
 
 
-    protected $redirectTo = '/dashboard-alternate'; //RouteServiceProvider::HOME;
+    protected $redirectTo = '/procesos'; //RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -56,10 +56,10 @@ class LoginController extends Controller
      
         //dd($user->imagen);
         if($user->role_id==1){
-            return redirect('/dashboard-alternate')->with('error',$user->id);
+            return redirect('/admin/procesos')->with('error',$user->id);
             
         }else{
-            return redirect('/dashboard-alternate')->with('error',$user->id);
+            return redirect('/admin/procesos')->with('error',$user->id);
         }
     }
 

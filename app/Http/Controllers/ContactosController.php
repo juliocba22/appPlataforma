@@ -35,7 +35,7 @@ class ContactosController extends Controller
  
         $validate = $this->validate($request , [
             'fullName'=>'required' ,
-            'email'=>'required | email |unique:contactos' 
+            'email'=>'required | email ' 
       ]);
      
       //dd($request);

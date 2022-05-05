@@ -13,6 +13,10 @@
 	<link rel="icon" href="assets/images/favicon-32x32.fw.png" type="image/png" />
 	<!--plugins-->
 	@yield("style")
+
+	 
+	<link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+
 	<link href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet">
@@ -73,7 +77,9 @@
 	 
 	<!--app JS-->
     <script src="{{ asset('assets/js/app.js') }}" defer></script>
-    
+	 
+		
+
 	@yield("script")
     @include("layouts.theme-control")
 </body>

@@ -32,9 +32,10 @@
                             <div class="card-body">
                                 <div class="border p-4 rounded">
                                     <div class="text-center">
-                                        <h3 class="">Sign in</h3>
-                                        <p>Dont have an account yet? <a href="{{ url('authentication-signup') }}">Sign up here</a>
-                                        </p>
+                                        <img src="assets/images/logo-img.jpg" width="180" alt="" />
+                                        <h3 class="">App. Factoring</h3>
+                                        <!--p>Dont have an account yet? <a href="{{ url('authentication-signup') }}">Sign up here</a>
+                                        </p-->
                                     </div>
                                    
                                     <div class="form-body">
@@ -62,17 +63,17 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <!--div class="col-md-6">
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
                                                     <label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 text-end">	<a href="{{ url('authentication-forgot-password') }}">Forgot Password ?</a>
-                                            </div>
+                                            </div-->
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Sign in</button>
+                                                    <button type="submit" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Ingresar</button>
                                                 </div>
                                             </div>
                                         </form>

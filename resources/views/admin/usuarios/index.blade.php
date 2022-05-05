@@ -78,7 +78,7 @@
 								</thead>
 								<tbody>
 									@foreach ($usuarios as $usuario )
-									<input type="hidden" id="id"
+									<input type="hidden" id="id" />
 									<tr>
 										 
                                         <td>

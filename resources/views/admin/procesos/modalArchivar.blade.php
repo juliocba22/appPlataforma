@@ -1,21 +1,21 @@
 
-<div class="modal" id="mc-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form method="POST" action="{{route('destroy.contacto', $item->id) }}" >
+<div class="modalArchivar" id="modalArchivar-{{$proceso->id}}" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form method="POST" action="{{route('archivar.proceso', $proceso->id) }}" >
         {{ csrf_field() }}
         <input name="_method" type="hidden" value="DELETE"/>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Eliminar Registro</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Archivar Proceso</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                Desea eliminar el registro?
+                Desea archivar el registro?
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"="modal">Cancelar</button>
                 <button type="submit" class="btn btn-primary">Aceptar</button>
               </div>
             </div>

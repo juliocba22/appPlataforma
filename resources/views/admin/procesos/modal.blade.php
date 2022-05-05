@@ -1,6 +1,6 @@
 
-<div class="modal" id="mc-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form method="POST" action="{{route('destroy.contacto', $item->id) }}" >
+<div class="modal" id="modal-{{$proceso->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form method="POST" action="{{route('destroy.proceso', $proceso->id) }}" >
         {{ csrf_field() }}
         <input name="_method" type="hidden" value="DELETE"/>
         <div class="modal-dialog" role="document">
@@ -15,7 +15,7 @@
                 Desea eliminar el registro?
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"="modal">Cancelar</button>
                 <button type="submit" class="btn btn-primary">Aceptar</button>
               </div>
             </div>

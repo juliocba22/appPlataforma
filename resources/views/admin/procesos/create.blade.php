@@ -16,8 +16,8 @@
                     <form method="POST" action="{{ route('store.proceso') }}" role="form" enctype="multipart/form-data">
                     {{ csrf_field() }}
                         <div class="row mb-3">
-                            <label for="inputEnterYourName" class="col-sm-3 col-form-label">Ingrese Nro. Radicacion</label>
-                            <div class="col-sm-4">
+                            <label for="inputEnterYourName" class="col-sm-3 col-form-label">Ingrese Nro. Radicación</label>
+                            <div class="col-sm-6">
                                 <input type="text" class="form-control"   name="inputNumero" placeholder="Numero de radicacon">
                             </div>
                         </div>

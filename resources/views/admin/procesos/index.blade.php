@@ -31,25 +31,28 @@
 					</div-->
 				</div>
 				<!--end breadcrumb-->
-			  
+			
 				<div class="card">
 				 
 					@if(Session::has('succes'))
-						<div class="col-lg-8">
-							<div class="alert alert-succes alert-dismissible fade show mb-4 mc-4" role="alert">
-								{{ Session::get ('succes') }}
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
+					<div class="alert alert-success border-0 bg-success alert-dismissible fade show py-2">
+						<div class="d-flex align-items-center">
+							<div class="font-35 text-white"><i class='bx bxs-check-circle'></i>
+							</div>
+							<div class="ms-3">
+								<h6 class="mb-0 text-white">Success Alerts</h6>
+								<div class="text-white">	{{ Session::get ('succes') }}!</div>
 							</div>
 						</div>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
         			@endif
 					<div class="card-body">
 						<div class="d-lg-flex align-items-center mb-4 gap-3">
 							<div class="position-relative">
 								<!--input type="text" class="form-control ps-5 radius-30" placeholder="Buscar Proceso"> <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span-->
-								<input class="form-control me-2" id="limit" name="limit" type="search" placeholder="Search" aria-label="Search"
-								value="{{ (isset($_GET['search'])) ? $_GET['search']: ''}}">
+								<!--input class="form-control me-2" id="limit" name="limit" type="search" placeholder="Search" aria-label="Search"
+								value="{{ (isset($_GET['search'])) ? $_GET['search']: ''}}"-->
 							</div>
 						  <div class="ms-auto"><a href="{{ route('create.proceso') }}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Nuevo Proceso</a></div>
 						</div>
@@ -142,6 +145,19 @@
 			$(document).ready(function() {
                 $('#quiztable1').DataTable({
                     dom: "Blfrtip",
+					language: {
+						"emptyTable": "No hay datos disponibles en la tabla",
+						"lengthMenu": "mostrar  _MENU_ entradas",
+						"info": "Showing _START_ to _END_ of _TOTAL_ entries",
+						"infoEmpty": "Showing 0 to 0 of 0 entries",
+						"search": "Buscar:",
+						"paginate": {
+							"first": "First",
+							"last": "Lasut",
+							"next": "Siguiente",
+							"previous": "Previo"
+						},
+					},
                     searching: true,
                     lengthChange: true,
                     buttons: [

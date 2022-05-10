@@ -25,7 +25,9 @@
                             <label class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
                                 <button type="submit" class="btn btn-info px-5">Registrar</button>
+                                <a type="button" href="{{ route('index.procesos') }}" class="btn btn-info px-5">Volver</a>
                             </div>
+                        
                         </div>
                     </form>
                     

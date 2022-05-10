@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Proceso;
-use App\Models\Processes;
+ 
+use App\Models\Documento;
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Input;
 use Session;
 use Illuminate\Support\Facades\Redirect;
 use GuzzleHttp\Client;
+use App\Http\Controllers\Str;
 
 class ProcesosController extends Controller
 {
@@ -141,7 +143,7 @@ class ProcesosController extends Controller
         
         $data  = $nuevo['actuaciones'];
         //$detalle = $nuevo['actuaciones'][0];
-     //   dd($data);
+        //dd($data);
    
         return view ('admin.procesos.detalle' , compact('data','id' ));
     
@@ -271,6 +273,38 @@ $proceso->update();
 Session::flash('succes','Se activo su proceso con exito');
 
 return redirect()->to('admin/procesos');
+
+}
+
+
+function upload(Request $request){
+   // dd($request);
+ $date = Carbon::now();
+ $docact = new Documento;
+// dd($proceso);
+ $docact->actuacion=$request->get('idReg');
+ $docact->user_id=auth()->user()->id;
+ 
+ 
+  if($request->hasFile("imagen")){
+    $file=$request->file("imagen");
+    
+    $extension = $request->file('imagen')->getClientOriginalExtension();
+    $filename = $request->file('imagen')->getClientOriginalName();
+    $separador = ".";
+    $separada = explode($separador, $filename);
+    $filename=$separada[0];
+    $file->move(
+    public_path().'/documentos',$filename.time().".".$extension);
+    $docact->imagen=$filename.time().".".$extension;
+}
+// dd($proceso);
+$docact->save();
+
+   //dd($proceso);
+Session::flash('succes','El documento se subio con exito');
+
+return redirect()->to('detalle?id='.$request->get('id'));
 
 }
 

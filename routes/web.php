@@ -93,6 +93,7 @@ Route::get('admin/procesoarchivados','App\Http\Controllers\ProcesosController@in
 
 Route::get('admin/archivar/{id?}','App\Http\Controllers\ProcesosController@archivar')->name('archivar.proceso');
 Route::get('admin/activar/{id?}','App\Http\Controllers\ProcesosController@activar')->name('activar.proceso');
+Route::post('admin/upload/{id?}','App\Http\Controllers\ProcesosController@upload')->name('upload.documento');
 /*Route::get('admin/blog/{id}','BlogController@edit')->name('edit.blog');
 Route::patch('admin/blog/{id}','BlogController@update')->name('update.blog');
 Route::delete('admin/blog/{id}','BlogController@destroy')->name('destroy.blog');
@@ -108,6 +109,11 @@ Route::get('contactos/actualizar/{id}','App\Http\Controllers\ContactosController
 Route::patch('contactos/actualizar/{id}','App\Http\Controllers\ContactosController@update')->name('update.contacto');
 Route::delete('contactos/{id}','App\Http\Controllers\ContactosController@destroy')->name('destroy.contacto');
 
+
+/*Documento */
+Route::get('admin/documento/{id?}','App\Http\Controllers\DocumentosController@index')->name('index.documentos');
+Route::post('delete/{id?}','App\Http\Controllers\DocumentosController@eliminar')->name('eliminar.documento');
+/*FIN DOCUMENTO */
 
 
 Route::get('/dashboard-alternate', 'App\Http\Controllers\DashboardController@index')->name('dashboard-alternate');

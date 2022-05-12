@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Console\Command;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
@@ -44,11 +45,16 @@ class ControlProcesos extends Command
      */
     public function handle()
     {
-
+       /* $mytime =  Carbon::now();
+        \Log::debug($mytime);
+        Storage::append("archivo.txt",$mytime);*/
+       
         //Armo la query para traer los procesos registrados de los usuarios
         $query = DB::table('procesos')
              ->select('*')
+             ->where('llaveProceso','=','05001400301020190122000')
              ->whereNull('fechaNotificacion')
+			  ->take(15)
              ->get();
 
             
@@ -76,37 +82,37 @@ class ControlProcesos extends Command
              // foreach ($array as $val) {
              foreach($query as $row) 
              {
-                 \Log::debug($row->llaveProceso);
+                 \Log::debug(serialize($row));
                
                  try{
                         $response = $client->request('GET', '/api/v2/Procesos/Consulta/NumeroRadicacion?numero='.$row->llaveProceso.'&SoloActivos=false');
-                }catch(Guzzle\Http\Exception\RequestException   $e)
+                }catch(RequestException   $e)
                 {
-                    $req = $e->getRequest();
-                     $resp =$e->getResponse();
-                    // \Log::debug( $req);
-                    // \Log::debug( $resp );
+                   // $req = $e->getRequest();
+                    // $resp =$e->getResponse();
+                     \Log::debug("RequestException1". $req);
+                      \Log::debug("RequestException2".  $resp );
                      continue;
                 }
                 catch (Guzzle\Http\Exception\ServerErrorResponseException $e) {
 
-                    $req = $e->getRequest();
-                    $resp =$e->getResponse();
-                   // \Log::debug( $req);
-                   // \Log::debug( $resp );
+                   // $req = $e->getRequest();
+                   // $resp =$e->getResponse();
+                     \Log::debug("ServerErrorResponseException1". $req);
+                    \Log::debug("ServerErrorResponseException2".  $resp );
                     continue;
                 }
                 catch (Guzzle\Http\Exception\BadResponseException $e) {
         
-                    $req = $e->getRequest();
-                    $resp =$e->getResponse();
-                   // \Log::debug( $req);
-                   // \Log::debug( $resp );
+                  //  $req = $e->getRequest();
+                  //  $resp =$e->getResponse();
+                     \Log::debug("BadResponseException1". $req);
+                    \Log::debug("BadResponseException2". $resp );
                     continue;
                 }
                 catch( Exception $e){
-                  //  \Log::debug( $e);
-                  //  \Log::debug( $e);
+                     \Log::debug("Exception1". $e);
+                    \Log::debug( $e);
                     continue;
                 }
                       
@@ -127,14 +133,37 @@ class ControlProcesos extends Command
                         //Variables para comparar dias
                         $newProcess = date('Y-m-d',$fecha );
                         $dateUpdate = date('Y-m-d',$fechaUltima );
-                        $date = Carbon::now()-> toDateTimeString();
-                        $n= $n+1;   
-                        if($dateUpdate==$date){ // Si la fecha de la ult actuacion
+                      //  $date =  Carbon::now(); //Carbon::now()-> toDateTimeString();
+                      $date = Carbon::now()->add(-2, 'day')->format('Y-m-d');
+                     // $date = $date->format('Y-m-d');  
+                      $n= $n+1;   
+                        \Log::debug("HOY       ".$date);
+                        \Log::debug("FECPROCSO ".$dateUpdate);
+                        if($dateUpdate >= $date){ // Si la fecha de la ult actuacion
                             // del proceso es igual a la fecha actual entonces tengo que enviar la notificacion
                             \Log::debug("GUARDAr".$idprocess);
-                                        }
+ 
+                            $proceso =  Proceso::findOrFail($row->id);
+                            //$proceso  = $procesoBuscar;
+                            $proceso->idProceso = $idprocess;
+                            $proceso->fechaProceso=date('Y-m-d',$fecha);
+                            $proceso->fechaUltimaActuacion=date('Y-m-d',$fechaUltima);
+                            $proceso->fechaNotificacion = $date;
+                            $proceso->update();
+      
+                           $notification = new Notification;
+                           $notification->process_id = $row->llaveProceso;
+                           $notification->notification_date = $date;
+                           $notification->save();
+
+
+
+                            Mail::to("julioam22@gmail.com")->send(new ProcesosEnvios($fecha,$nroradicacion , $sujetosprocesales , $fechaUltima,
+                            $despacho , $departamento ));
+                        
+                        }
                         else{
-                            $procesoBuscar =   DB::table('procesos')
+                         /*    $procesoBuscar =   DB::table('procesos')
                             ->select('*')
                             -> where('llaveProceso','=',$row->llaveProceso)
                             ->first();
@@ -146,12 +175,13 @@ class ControlProcesos extends Command
                             $proceso->fechaUltimaActuacion=date('Y-m-d',$fechaUltima);
                             $proceso->fechaNotificacion = $date;
                             $proceso->update();
-       
+      
                            $notification = new Notification;
                            $notification->process_id = $procesoBuscar->llaveProceso;
                            $notification->notification_date = $date;
-                           $notification->save();
-                            
+                           $notification->save();*/
+                          
+   
                         } 
 
                    

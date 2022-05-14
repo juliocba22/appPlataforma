@@ -52,9 +52,9 @@ class ControlProcesos extends Command
         //Armo la query para traer los procesos registrados de los usuarios
         $query = DB::table('procesos')
              ->select('*')
-             ->where('llaveProceso','=','05001400301020190122000')
+             ->where('user_id','=','3')
              ->whereNull('fechaNotificacion')
-			  ->take(15)
+			 //->take(15)
              ->get();
 
             

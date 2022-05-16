@@ -53,7 +53,7 @@ class ControlProcesos extends Command
         $query = DB::table('procesos')
              ->select('*')
              ->where('user_id','=','3')
-             ->whereNull('fechaNotificacion')
+             ->whereNull('fechaNotificacion') 
 			 //->take(15)
              ->get();
 

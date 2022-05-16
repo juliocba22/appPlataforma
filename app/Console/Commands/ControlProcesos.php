@@ -163,6 +163,14 @@ class ControlProcesos extends Command
                         
                         }
                         else{
+
+                            $proceso =  Proceso::findOrFail($row->id);
+                            //$proceso  = $procesoBuscar;
+                            $proceso->idProceso = $idprocess;
+                            $proceso->fechaProceso=date('Y-m-d',$fecha);
+                            $proceso->fechaUltimaActuacion=date('Y-m-d',$fechaUltima);
+                            $proceso->fechaNotificacion = $date;
+                            $proceso->update();
                          /*    $procesoBuscar =   DB::table('procesos')
                             ->select('*')
                             -> where('llaveProceso','=',$row->llaveProceso)

@@ -16,16 +16,27 @@
                         <h5 class="mb-0 text-info">Registrar Usuario</h5>
                     </div>
                     <hr/>
-                    <div class="row mb-3">
+                         <div class="row mb-3">
                         <label for="inputEnterYourName" class="col-sm-3 col-form-label">Nombres y Apellidos</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="name" name="name"  placeholder="Ingrese Apellido y Nombres">
-                        </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name"  placeholder="Ingrese Apellido y Nombres">
+                                @if ($errors->has('name'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                         
                     </div>
                     <div class="row mb-3">
                         <label for="inputEmailAddress2" class="col-sm-3 col-form-label">Email </label>
                         <div class="col-sm-9">
-                            <input type="email" id="email" name="email" class="form-control"   placeholder="Email">
+                            <input type="email" id="email" name="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"   placeholder="Email">
+                            @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -61,7 +72,12 @@
                     <div class="row mb-3">
                         <label for="inputPhoneNo2" class="col-sm-3 col-form-label">Telefono</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese Telefono">
+                            <input type="text" class="form-control {{ $errors->has('telefono') ? ' is-invalid' : '' }}" id="telefono" name="telefono" placeholder="Ingrese Telefono">
+                            @if ($errors->has('telefono'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('telefono') }}</strong>
+                            </span>
+                        @endif
                         </div>
                     </div>
                     <div class="row mb-3">

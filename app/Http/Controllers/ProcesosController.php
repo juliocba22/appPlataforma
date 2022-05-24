@@ -32,8 +32,8 @@ class ProcesosController extends Controller
             $procesos = DB::table('procesos')
             ->where('user_id','=',auth()->user()->id)
             ->whereNull('fechabaja')
-            ->where('activo','=','0')
-            ->orwhere('activo')
+            ->whereNull('activo')
+           // ->whereNull('activo')
             ->get();
         }
         
@@ -55,13 +55,14 @@ class ProcesosController extends Controller
         if(auth()->user()->id===1){
             $procesos = DB::table('procesos')
             ->where('activo','=',1)
-            
+            ->whereNull('fechaBaja')
             ->get();
         }else{
            // dd(auth()->user()->id);
             $procesos = DB::table('procesos')
             ->where('user_id','=',auth()->user()->id)
             ->where('activo','=',1)
+            ->whereNull('fechaBaja')
             ->get();
         }
         
@@ -168,7 +169,7 @@ try{
     $req = $e->getRequest();
      $resp =$e->getResponse();
      Session::flash('error',' No Se registro su persona con exito');
-       //dd($enviarproceso);
+       dd($enviarproceso);
        return redirect()->to('crearproceso');
 }
 catch (Guzzle\Http\Exception\ServerErrorResponseException $e) {
@@ -176,7 +177,7 @@ catch (Guzzle\Http\Exception\ServerErrorResponseException $e) {
     $req = $e->getRequest();
     $resp =$e->getResponse();
     Session::flash('error',' No Se registro su persona con exito');
-    //dd($enviarproceso);
+    dd($enviarproceso);
     return redirect()->to('crearproceso');
 }
 catch (Guzzle\Http\Exception\BadResponseException $e) {
@@ -184,48 +185,74 @@ catch (Guzzle\Http\Exception\BadResponseException $e) {
     $req = $e->getRequest();
     $resp =$e->getResponse();
     Session::flash('error',' No Se registro su persona con exito');
-    //dd($enviarproceso);
+    dd($enviarproceso);
     return redirect()->to('crearproceso');
 }
 catch( Exception $e){
     Session::flash('error',' No Se registro su persona con exito');
-    //dd($enviarproceso);
+    dd($enviarproceso);
     return redirect()->to('crearproceso');
 }
       
 
 
-  
+
+//dd($response);
+                    if($response){
+                        try{
+                        $j =   $response->getBody()-> getContents();
+                        $nuevo = json_decode($j,true);
+// dd($nuevo);
+ if($nuevo["procesos"]){
+
  
-    if($response){
-        $j =   $response->getBody()-> getContents();
-        $nuevo = json_decode($j,true);
-        $proceso = new Proceso;
-        $proceso->llaveProceso=$nuevo["procesos"][0]["llaveProceso"];
-        $proceso->user_id=auth()->user()->id;
-        $proceso->email=auth()->user()->email;
-        $proceso->idproceso = $nuevo["procesos"][0]["idProceso"];
-        $proceso->idConexion = $nuevo["procesos"][0]["idConexion"];
-        $fechapro =substr($nuevo["procesos"][0]["fechaProceso"], 0 , 10);
-        $proceso->fechaProceso = date($fechapro);
-       
-        $fechapro = substr($nuevo["procesos"][0]["fechaUltimaActuacion"], 0 , 10);
-        $proceso->fechaUltimaActuacion =date( $fechapro);
-        $proceso->despacho =  $nuevo["procesos"][0]["despacho"];
-        $proceso->sujetosProcesales = $nuevo["procesos"][0]["sujetosProcesales"];
-       // $proceso->llaveProceso =  $nuevo["procesos"][0]["llaveProceso"];
-        
-        $proceso->depaprtamento =  $nuevo["procesos"][0]["departamento"];
-    }
-    $proceso->save();
+                        $proceso = new Proceso;
+                        $proceso->llaveProceso=$nuevo["procesos"][0]["llaveProceso"];
+                        $proceso->user_id=auth()->user()->id;
+                        $proceso->email=auth()->user()->email;
+                        $proceso->idproceso = $nuevo["procesos"][0]["idProceso"];
+                        $proceso->idConexion = $nuevo["procesos"][0]["idConexion"];
 
-    $enviarproceso =  Proceso::select("*")->latest()->first();
+                        if($nuevo["procesos"][0]["fechaProceso"] === null){
+                           // dd($nuevo);
+                            Session::flash('error',' No Se registro su persona con exito');
+                     
+                            return redirect()->to('crearproceso');
+                        }else{
+                            $fechapro =substr($nuevo["procesos"][0]["fechaProceso"], 0 , 10);
+                            $proceso->fechaProceso = date($fechapro);
+                       
+                            $fechapro = substr($nuevo["procesos"][0]["fechaUltimaActuacion"], 0 , 10);
+                            $proceso->fechaUltimaActuacion =date( $fechapro);
+                        }
+                        $proceso->despacho =  $nuevo["procesos"][0]["despacho"];
+                        $proceso->sujetosProcesales = $nuevo["procesos"][0]["sujetosProcesales"];
+                    // $proceso->llaveProceso =  $nuevo["procesos"][0]["llaveProceso"];
+                        
+                        $proceso->depaprtamento =  $nuevo["procesos"][0]["departamento"];
+                    }else{
+                        Session::flash('error',' No Se registro su persona con exito');
+                     
+                        return redirect()->to('crearproceso');
 
-     
-      Session::flash('succes','Se registro su persona con exito');
-       //dd($enviarproceso);
-       return redirect()->to('admin/procesos');
+                    }
+                    }
+                    catch( Exception $e){
+                    //    dd("CATCH");
+                        Session::flash('error',' No Se registro su persona con exito');
+                     
+                        return redirect()->to('crearproceso');
+                    }
+                    }
+                    $proceso->save();
 
+                    $enviarproceso =  Proceso::select("*")->latest()->first();
+
+                    
+                    Session::flash('succes','Se registro su persona con exito');
+                    //dd($enviarproceso);
+                    return redirect()->to('admin/procesos');
+                   
     }
 
     function destroy($id){

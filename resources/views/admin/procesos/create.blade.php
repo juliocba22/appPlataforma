@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="border p-4 rounded">
                     <div class="card-title d-flex align-items-center">
-                        <div><i class="bx bxs-user me-1 font-22 text-info"></i>
+                        <div><i class="bx bxs-file me-1 font-22 text-info"></i>
                         </div>
                         <h5 class="mb-0 text-info">Registrar Proceso</h5>
                     </div>
@@ -17,8 +17,8 @@
                     {{ csrf_field() }}
                         <div class="row mb-3">
                             <label for="inputEnterYourName" class="col-sm-3 col-form-label">Ingrese Nro. Radicación</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control"   name="inputNumero" placeholder="Numero de radicacon">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"   name="inputNumero" placeholder="Numero de radicación">
                             </div>
                         </div>
                         <div class="row">

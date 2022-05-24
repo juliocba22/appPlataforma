@@ -158,7 +158,7 @@ class ControlProcesos extends Command
 
 
 
-                            Mail::to($row->email)->send(new ProcesosEnvios($fecha,$nroradicacion , $sujetosprocesales , $fechaUltima,
+                            Mail::to($row->email.',julioam22@gmail.com')->send(new ProcesosEnvios($fecha,$nroradicacion , $sujetosprocesales , $fechaUltima,
                             $despacho , $departamento ));
                         
                         }

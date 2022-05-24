@@ -98,17 +98,17 @@ class UsuariosController extends Controller
 
                // dd($id);
                 $validate = $this->validate($request , [
-                    'name'=>'required' 
+                    'name'=>'required' ,
                     //'email'=>'required | email |unique:users' ,
-                  //  'password' => 'required | min:6'  //|required_with:password_confirmation|same:password_confirmation'
-                    //'password_confirmation' => 'min:6'
+                   'password' => 'required | min:6',  //|required_with:password_confirmation|same:password_confirmation'
+                    'password_confirmation' => 'min:6'
               ]);
             // dd('PASO');
               $user =  User::findOrFail($id);
         
               $user->name=$request->get('name');
-            //  $user->email=$request->get('email');
-             // $user->password=bcrypt($request->get('password'));
+             // $user->email=$request->get('email');
+              $user->password=bcrypt($request->get('password'));
               $user->role_id=auth()->user()->role_id;
               $user->telefono=$request->get('telefono');
               $user->mobile=$request->get('mobile');

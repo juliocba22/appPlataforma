@@ -115,6 +115,11 @@ Route::get('admin/documento/{id?}','App\Http\Controllers\DocumentosController@in
 Route::post('delete/{id?}','App\Http\Controllers\DocumentosController@eliminar')->name('eliminar.documento');
 /*FIN DOCUMENTO */
 
+/*Calendario*/
+Route::get('agenda/','App\Http\Controllers\UsuariosController@index')->name('index.agenda');
+/*FIN Calendario*/
+
+
 
 Route::get('/dashboard-alternate', 'App\Http\Controllers\DashboardController@index')->name('dashboard-alternate');
 

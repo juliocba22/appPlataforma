@@ -156,6 +156,23 @@ class ProcesosController extends Controller
       $validate = $this->validate($request , [
         'inputNumero'=>'required|min:23|max:23'      
   ]);
+
+
+//Control existencia de Proceso
+$procesos = DB::table('procesos')
+->where('llaveProceso','=',$request->inputNumero) 
+->where('user_id','=',auth()->user()->id)
+                ->get();
+                $cantidad = $procesos->count();
+
+               // dd($cantidad);
+
+
+                if($cantidad>0){
+                    Session::flash('error',' El proceso ya esta registrado');
+                     
+                        return redirect()->to('crearproceso');
+                }
       $client = new Client([
         // Base URI is used with relative requests
         'base_uri' => 'https://consultaprocesos.ramajudicial.gov.co:448',

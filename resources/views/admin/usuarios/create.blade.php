@@ -31,7 +31,7 @@
                     <div class="row mb-3">
                         <label for="inputEmailAddress2" class="col-sm-3 col-form-label">Email </label>
                         <div class="col-sm-9">
-                            <input type="email" id="email" name="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"   placeholder="Email">
+                            <input type="email" id="email" name="email" class="form-control {{ $errors->has('titulo') ? ' is-invalid' : '' }}"   placeholder="Email">
                             @if ($errors->has('email'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('email') }}</strong>

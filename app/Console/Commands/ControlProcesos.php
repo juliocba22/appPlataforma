@@ -159,7 +159,7 @@ class ControlProcesos extends Command
 
 
 
-                            Mail::to($row->email)->send(new ProcesosEnvios($fecha,$nroradicacion , $sujetosprocesales , $fechaUltima,
+                            Mail::to($row->email)->send(new ProcesosEnvios(date('Y-m-d',$fecha),$nroradicacion , $sujetosprocesales , date('Y-m-d',$fechaUltima),
                             $despacho , $departamento ));
                         
                         }

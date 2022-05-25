@@ -26,13 +26,13 @@
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
                     <div class="col mx-auto">
                         <div class="mb-4 text-center">
-                            <img src="assets/images/logo-img.jpg" width="180" alt="" />
+                            <img src="assets/images/login-images/logo.jpg" width="180" alt="" />
                         </div>
                         <div class="card">
                             <div class="card-body">
                                 <div class="border p-4 rounded">
                                     <div class="text-center">
-                                        <img src="assets/images/logo-img.jpg" width="180" alt="" />
+                                        <img src="{{ asset('images/login-images/logo.jpg') }}" width="180" alt="" />
                                         <h3 class="">App. Factoring</h3>
                                         <!--p>Dont have an account yet? <a href="{{ url('authentication-signup') }}">Sign up here</a>
                                         </p-->

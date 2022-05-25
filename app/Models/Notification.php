@@ -12,7 +12,7 @@ class Notification extends Model
 
     public $timestamps =false;
 
-    protected $fillable = ['process_id','notification_date'];
+    protected $fillable = ['id_proceso' ,'process_id','notification_date'];
 
     protected $guarded=[];
 }

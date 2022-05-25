@@ -152,6 +152,7 @@ class ControlProcesos extends Command
                             $proceso->update();
       
                            $notification = new Notification;
+                           $notification->id_proceso = $row->id;
                            $notification->process_id = $row->llaveProceso;
                            $notification->notification_date = $date;
                            $notification->save();

@@ -10,7 +10,7 @@
 
 	
 	<!--favicon-->
-	<link rel="icon" href="assets/images/favicon-32x32.fw.png" type="image/png" />
+	<link rel="icon" href="{{  asset('assets/images/favicon-32x32.fw.png')}}" type="image/png" />
 	<!--plugins-->
 	@yield("style")
 

@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 <div class="border p-4 rounded">
                                     <div class="text-center">
-                                        <img src="{{ asset('images/login-images/logo.jpg') }}" width="180" alt="" />
+                                        <img src="{{ asset('assets/images/login-images/logo.jpeg') }}" width="180" alt="" />
                                         <h3 class="">App. Factoring</h3>
                                         <!--p>Dont have an account yet? <a href="{{ url('authentication-signup') }}">Sign up here</a>
                                         </p-->

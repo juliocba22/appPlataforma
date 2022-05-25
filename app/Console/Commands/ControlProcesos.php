@@ -134,7 +134,7 @@ class ControlProcesos extends Command
                         $newProcess = date('Y-m-d',$fecha );
                         $dateUpdate = date('Y-m-d',$fechaUltima );
                       //  $date =  Carbon::now(); //Carbon::now()-> toDateTimeString();
-                      $date = Carbon::now()->add(-2, 'day')->format('Y-m-d');
+                      $date = Carbon::now()->add(-1, 'day')->format('Y-m-d');
                      // $date = $date->format('Y-m-d');  
                       $n= $n+1;   
                         \Log::debug("HOY       ".$date);

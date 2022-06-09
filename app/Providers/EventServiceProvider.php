@@ -23,9 +23,12 @@ class EventServiceProvider extends ServiceProvider
         ContactWasRecorded::class=>[
             SendBothMails::class,
         ],
-        'Illuminate\Auth\Events\Login' => [
-            'App\Listeners\LoginSuccessful'
+        'Illuminate\Auth\Events\Verified' => [
+            'App\Listeners\LogVerifiedUser',
         ],
+        /*'Illuminate\Auth\Events\Login' => [
+            'App\Listeners\LoginSuccessful'
+        ],*/
     ];
 
     /**

@@ -27,20 +27,20 @@
                     <div class="col mx-auto">
                         <div class="mb-4 text-center">
                             <img src="assets/images/login-images/logo.jpg" width="180" alt="" />
-                        </div>
                         <div class="card">
                             <div class="card-body">
                                 <div class="border p-4 rounded">
                                     <div class="text-center">
                                         <img src="{{ asset('assets/images/login-images/logo.jpeg') }}" width="180" alt="" />
                                         <h3 class="">App. Factoring</h3>
-                                        <!--p>Dont have an account yet? <a href="{{ url('authentication-signup') }}">Sign up here</a>
-                                        </p-->
+                                        <p>Dont have an account yet?  <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                                        </p>
                                     </div>
                                    
                                     <div class="form-body">
                                       
-                                            <form method="POST" action="{{ route('login') }}" class="row g-3">
+                                            <form method="post" action="{{ route('ingresar') }}" class="row g-3">
+                                                @method('post')
                                                 @csrf
                                             <div class="col-12">
                                                 <label for="inputEmailAddress" class="form-label">Email Address</label>
@@ -63,18 +63,23 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <!--div class="col-md-6">
+                                            <div class="col-md-6">
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
                                                     <label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 text-end">	<a href="{{ url('authentication-forgot-password') }}">Forgot Password ?</a>
-                                            </div-->
+                                            <div class="col-md-6 text-end">	 <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Your Password?') }}
+                                            </a>
+                                            </div>
+                                          
                                             <div class="col-12">
-                                                <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Ingresar</button>
-                                                </div>
+                                               
+                                              
+                                                   <i class="bx bxs-lock-open"></i><a href="{{ route('register') }}" class="btn btn-success">Registrar</a>
+                                                    <button type="submit" class="btn btn-success float-center"><i class="bx bxs-lock-open"></i>Ingresar</button>
+                                               
                                             </div>
                                         </form>
                                     </div>

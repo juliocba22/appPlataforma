@@ -48,13 +48,13 @@ class LoginController extends Controller
                     return redirect('/dashboard-alternate');
                    
                  }*/
-
+                 
         $this->middleware('guest')->except('logout');
     }
 
     public function authenticated($request , $user){
      
-        //dd($user->imagen);
+      //  dd($user->imagen);
         if($user->role_id==1){
             return redirect('/admin/procesos')->with('error',$user->id);
             

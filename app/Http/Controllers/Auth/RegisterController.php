@@ -8,7 +8,11 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
+use Illuminate\Auth\Events\Registered;
+use App\Notifications\InvoicePaid;
 class RegisterController extends Controller
 {
     /*
@@ -29,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo ='/dashboard-alternate'; // RouteServiceProvider::LOGIN;
 
     /**
      * Create a new controller instance.
@@ -38,6 +42,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+
+      
         $this->middleware('guest');
     }
 
@@ -49,12 +55,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'imagen'=> ['required', 'string'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        
+//dd($data);
+return Validator::make($data, [
+    'name' => ['required', 'string', 'max:255'],
+    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    'password' => ['required', 'string', 'min:8', 'confirmed'],
+]);
     }
 
     /**
@@ -65,15 +72,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $request = app('request');
+        //$request = app('request');
       
-        dd($data);
+       // dd($data);
 
-        return User::create([
+        $data['confirmation_code']= Str::random(25);
+        $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'imagen'=>$data['imagen'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($data['password']) ,
+            'confirmation_code'=> $data['confirmation_code']
         ]);
+
+        Mail::send('mails.confirmation_code', $data, function($message) use($data){
+            $message->to($data['email'] , $data['name'])->subject('Por favor confirmar tu correo');
+        });  
+         
+       // event(new Registered($user));
+       return $user;
+
+      // event(new Registered($user));
     }
+
+
+    
+
+  
 }

@@ -15,6 +15,33 @@ use App\Events\ContactWasRecorded;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['verify' => true]);
+
+
+Route::get('/dashboard-alternate', 'App\Http\Controllers\DashboardController@index')
+->middleware('auth','verified')
+->name('dashboard');
+/*
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');*/
+//Route::get('register/verificar/{code}', 'App\Http\Controllers\UsuariosController@verify');
+
+Route::get('register/verify/{code}', [App\Http\Controllers\Auth\VerificationController::class,'verificar'])->name('verificar.new');
+ 
+Route::post('verification/resend', [App\Http\Controllers\Auth\VerificationController::class,'resend'])->name('verificar.resend');
+
+
+//Route::get('email/verificar/{token}',['as'=>'verify','uses'=>'App\Http\Controllers\Auth\VerificationController@verify']);
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+/*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+->middleware('auth','verified')
+->name('home');*/
+//Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 
 Route::get('/test', function () {
@@ -44,7 +71,7 @@ return json_decode($response->getBody()-> getContents());*/
 Route::get( '/', 'App\Http\Controllers\Auth\LoginController@showLogin')->middleware('guest')->name('login');
 //Route::get( '/', 'Auth\LoginController@login')->name('login');
 Route::get( '/logout', 'App\Http\Controllers\Auth\LoginController@logout')->middleware('guest')->name('logout');
-Route::post('login','Auth\LoginController@login')->name('login');
+Route::post('login','App\Http\Controllers\Auth\LoginController@login')->name('ingresar');
 
 Route::get('/authentication-signin', function () {return view('authentication-signin');})->name("login.new");
 Route::get('/authentication-signup', function () {
@@ -84,7 +111,7 @@ Route::get('admin/perfil','App\Http\Controllers\UsuariosController@perfil')->nam
 Route::patch('admin/perfil/{id}','App\Http\Controllers\UsuariosController@updatePerfil')->name('update.perfil');
 
 /*Procesos */
-Route::get('admin/procesos','App\Http\Controllers\ProcesosController@index')->name('index.procesos');
+Route::get('admin/procesos','App\Http\Controllers\ProcesosController@index')->middleware('auth','verified')->name('index.procesos');
 Route::get('detalle/{id?}/{fecini?/{fecfin?}','App\Http\Controllers\ProcesosController@verDetalle')->name('detalle.procesos');
 Route::get('crearproceso','App\Http\Controllers\ProcesosController@create')->name('create.proceso');
 Route::post('guardarproceso','App\Http\Controllers\ProcesosController@store')->name('store.proceso');
@@ -121,7 +148,6 @@ Route::get('agenda/','App\Http\Controllers\UsuariosController@index')->name('ind
 
 
 
-Route::get('/dashboard-alternate', 'App\Http\Controllers\DashboardController@index')->name('dashboard-alternate');
 
 Route::get('/form-layouts', function () {
     return view('form-layouts');
@@ -138,10 +164,3 @@ Route::get('/contactos', function () {
 });*/
 /*Components*/
 
-Auth::routes();
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

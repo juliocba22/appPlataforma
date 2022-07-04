@@ -33,7 +33,7 @@
                                     <div class="text-center">
                                         <img src="{{ asset('assets/images/login-images/logo.jpeg') }}" width="180" alt="" />
                                         <h3 class="">App. Factoring</h3>
-                                        <p>Dont have an account yet?  <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                                        <p>No tienes una cuenta?  <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Registrarse</a>
                                         </p>
                                     </div>
                                    
@@ -63,21 +63,27 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <!--div class="col-md-6">
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
                                                     <label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 text-end">	 <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                {{ __('Forgot Your Password?') }}
+                                            </div-->
+                                            <div class="col-md-12 text-end">	 <a class="btn btn-link" href="{{ route('forget.password.get') }}">
+                                                <!--div class="col-md-6 text-end">	 <a class="btn btn-link" href="{{ route('password.request') }}"-->
+                                                Olvido su password?
                                             </a>
                                             </div>
+                                            <!--div class="checkbox">
+                                                <label>
+                                                    <a href="{{ route('forget.password.get') }}">Reset Password</a>
+                                                </label>
+                                            </div-->
                                           
                                             <div class="col-12">
                                                
                                               
-                                                   <i class="bx bxs-lock-open"></i><a href="{{ route('register') }}" class="btn btn-success">Registrar</a>
+                                                   </i><a href="{{ route('register') }}" class="btn btn-success">Registrar</a>
                                                     <button type="submit" class="btn btn-success float-center"><i class="bx bxs-lock-open"></i>Ingresar</button>
                                                
                                             </div>

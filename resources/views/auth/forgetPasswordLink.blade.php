@@ -41,7 +41,7 @@
 <body>
    
 	<!--wrapper-->
-    <div id="notification" class="alert mx-3" >TEST ssss </div>
+  
 	<div class="wrapper">
        <div class="container">
     <div class="row justify-content-center">

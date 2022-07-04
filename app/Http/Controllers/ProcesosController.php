@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Proceso;
+use App\Models\User;
+use App\Models\Notification;
  
 use App\Models\Documento;
 use Carbon\Carbon;
@@ -19,6 +21,58 @@ class ProcesosController extends Controller
     public function __construct() {
         $this->middleware(['auth','verified']);
     }
+
+    public function indexDashboard(Request $request){
+
+        $dataDash  = "[{y: 5 }]";
+
+        $dataSerie = '[{name: "Desktop", y: 56 }, {name: "Mobile", y: 30 }, { name: "Tablet",  y: 14 }]';
+
+        $dataS = json_decode($dataSerie, true);
+         
+        $data = json_encode($dataDash);
+
+         $user = User::select (\DB::raw("COUNT(*) as count") )
+         ->groupBy(\DB::raw("Second(created_at)"))
+         ->pluck('count');
+          
+        $procesos = Proceso:: selectRaw("depaprtamento as name , COUNT(depaprtamento) as count ")
+                        ->where('user_id','=',auth()->user()->id)
+                        ->groupBy ("depaprtamento")
+                        ->get();
+
+                        $despachos = Proceso:: selectRaw("despacho as name , COUNT(despacho) as count ")
+                        ->where('user_id','=',3)
+                        ->whereRaw('despacho is not null')
+                        ->groupBy ("despacho")
+                        ->having('count','>',0)
+                        ->get();
+        $puntos = [];
+
+        foreach($procesos as $proceso){
+                $puntos[]=['name'=>$proceso['name'],'y'=>floatval($proceso['count'])];
+        }
+
+        $arrDespacho = [];
+
+        foreach($despachos as $desp){
+                $arrDespacho[]=['name'=>$desp['name'],'y'=>floatval($desp['count'])];
+        }
+       // dd($puntos);
+
+       $notificaciones= DB::table("notifications as n")
+       -> select(DB::raw(" MONTH(notification_date) Mes, COUNT(notification_date) as count")) 
+       ->JOIN ("procesos as pro","n.process_id","=","pro.llaveProceso")
+       ->WHERERAW("pro.user_id =3")
+       ->GROUPBYRAW("MONTH(notification_date) ")->get();
+
+       dd($notificaciones.count());
+       for ($i = 1; $i <= $notificaciones.length(); $i++) {
+        echo $i;
+         }
+        return view ('admin.dashboard.dashboard' ,compact('dataDash' , 'dataS' , 'user' , 'procesos','puntos','arrDespacho'));
+
+        }
      public function index(Request $request){
  
         if(auth()->user()->id===1){

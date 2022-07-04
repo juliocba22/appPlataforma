@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use GuzzleHttp\Client;
 use App\Mail\ProcesosEnvios;
-
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Events\ContactWasRecorded;
 /*
 |--------------------------------------------------------------------------
@@ -143,10 +143,17 @@ Route::post('delete/{id?}','App\Http\Controllers\DocumentosController@eliminar')
 /*FIN DOCUMENTO */
 
 /*Calendario*/
-Route::get('agenda/','App\Http\Controllers\UsuariosController@index')->name('index.agenda');
+Route::get('eventos/show','App\Http\Controllers\EventosController@show')->middleware('auth')->name('show.eventos');
+//Route::post('eventos/','App\Http\Controllers\EventosController@store')->name('ajaxRequest.post');
+
+Route::resource('eventos', 'App\Http\Controllers\EventosController')->middleware('auth');
 /*FIN Calendario*/
 
 
+/*DASHBOARD*/
+
+Route::get('dashboard','App\Http\Controllers\ProcesosController@indexDashboard')->middleware('auth')->name('dashboard');
+/*FIN DASHBOARD */
 
 
 Route::get('/form-layouts', function () {
@@ -164,3 +171,9 @@ Route::get('/contactos', function () {
 });*/
 /*Components*/
 
+ 
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+ 

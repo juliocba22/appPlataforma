@@ -15,7 +15,7 @@
         <ul class="metismenu" id="menu">
             @if(auth()->user()->role_id===1)
                 <li>
-                    <a href="{{ url('dashboard-alternate') }}">
+                    <a href="{{ route('dashboard') }}">
                         <div class="parent-icon"><i class='bx bx-bar-chart-alt-2'></i>
                         </div>
                         <div class="menu-title">DASHBOARD</div>
@@ -63,7 +63,7 @@
                     </li>
                 <li>
         
-                    <a href="{{ url('app-fullcalender') }}">
+                    <a href="{{ url('/eventos') }}">
                         <div class="parent-icon"><i class='bx bx-calendar'></i>
                         </div>
                         <div class="menu-title">Mi agenda</div>

@@ -61,9 +61,9 @@
 								<thead class="table-light">
 									<tr>
 										<th>Nro. Radicacion</th>
-										<th>Fecha de Radicación</th>
-										<th>Ultima Actualizacion</th>
-									 
+										<th>Fecha de Rad.</th>
+										<th>Ult. Act.</th>
+										<th>Sujeto Pro.</th>
                                         <th>Detalle</th>
 										<th>Actions</th>
 									</tr>
@@ -76,17 +76,14 @@
 									<tr>
 										<td>
 											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">{{  $proceso->llaveProceso}}</h6>
+												<div class="ms-1">
+													<h6 class="mb-0 font-3">{{  $proceso->llaveProceso}}</h6>
 												</div>
 											</div>
 										</td>
 										<td>{{ $proceso->fechaProceso }}</td>
 										<td>{{ $proceso->fechaUltimaActuacion }}</td>
-									 
+										<td>{{ $proceso->sujetosProcesales }}</td>
                                        
 										<td>
 											<button id="verDetalle" type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="openDetalle({{ $proceso->idProceso }});" >

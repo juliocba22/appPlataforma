@@ -58,40 +58,48 @@ class ProcesosController extends Controller
         foreach($despachos as $desp){
                 $arrDespacho[]=['name'=>$desp['name'],'y'=>floatval($desp['count'])];
         }
-       // dd($puntos);
+        
 
        $notificaciones= DB::table("notifications as n")
        -> select(DB::raw(" MONTH(notification_date) Mes, COUNT(notification_date) as count")) 
        ->JOIN ("procesos as pro","n.process_id","=","pro.llaveProceso")
        ->WHERERAW("pro.user_id =3")
        ->GROUPBYRAW("MONTH(notification_date) ")->get();
-
-       dd($notificaciones.count());
-       for ($i = 1; $i <= $notificaciones.length(); $i++) {
-        echo $i;
+      
+       $arrNot  = [];
+       // array_push($notificaciones, "1", "100");
+      // dd(count($notificaciones));
+       foreach($notificaciones as $val){
+           // $arrNot[]=['1','100']];
          }
-        return view ('admin.dashboard.dashboard' ,compact('dataDash' , 'dataS' , 'user' , 'procesos','puntos','arrDespacho'));
+
+
+
+        return view ('admin.dashboard.dashboard' ,compact('dataDash' , 'dataS','procesos' , 'user' ,'puntos','arrDespacho' , 'arrNot' ));
 
         }
      public function index(Request $request){
  
         if(auth()->user()->id===1){
             $procesos = DB::table('procesos')
+            ->selectraw("id,idProceso ,llaveProceso, DATE(fechaProceso) as fechaProceso,fechaUltimaActuacion, sujetosProcesales")
             ->whereNull ('fechabaja')
-            ->where('activo','=','0')
-            ->orwhereNull('activo')
+            //->where('activo','=','0')
+            ->whereNull('activo')
+            ->orderBy('fechaultimaactuacion','DESC')
             ->get();
         }else{
            // dd(auth()->user()->id);
             $procesos = DB::table('procesos')
+            ->selectraw("id,idProceso ,llaveProceso, DATE(fechaProceso) as fechaProceso,fechaUltimaActuacion, sujetosProcesales")
             ->where('user_id','=',auth()->user()->id)
             ->whereNull('fechabaja')
             ->whereNull('activo')
-           // ->whereNull('activo')
+            ->orderBy('fechaultimaactuacion','DESC')
             ->get();
         }
         
-      
+      //dd($procesos);
 
       
 

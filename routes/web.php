@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use GuzzleHttp\Client;
 use App\Mail\ProcesosEnvios;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\UsuariosController;
 use App\Events\ContactWasRecorded;
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +110,8 @@ Route::delete('admin/usuarios/{id}','App\Http\Controllers\UsuariosController@des
 /* PERFIL */
 Route::get('admin/perfil','App\Http\Controllers\UsuariosController@perfil')->name('perfil.usuario');
 Route::patch('admin/perfil/{id}','App\Http\Controllers\UsuariosController@updatePerfil')->name('update.perfil');
+Route::get('change-password/', [UsuariosController::class, 'ChangePasswordForm'])->name('change.password');
+Route::post('change-password', [UsuariosController::class, 'submitResetPasswordForm'])->name('reset.change.post');
 
 /*Procesos */
 Route::get('admin/procesos','App\Http\Controllers\ProcesosController@index')->middleware('auth','verified')->name('index.procesos');

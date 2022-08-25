@@ -10,14 +10,14 @@
         <div class="page-wrapper">
         <div class="page-content">
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
-                <div class="col d-flex">
+                <!--div class="col d-flex">
                     <div class="card radius-10 w-100">
                         <div class="card-body">
                          
                             <div id="chart8"></div>
                         </div>
                     </div>
-                </div>
+                </div-->
                
                 <div class="col">
                     <div class="card radius-10">
@@ -427,7 +427,7 @@
                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
             },
             series: [{
-                name: "Traffic Source",
+                name: "Porcentaje de Procesos por Juzgados",
                 colorByPoint: !0,
                data:dataPuntos
                // data: 
@@ -520,7 +520,7 @@
                 enabled: !1
             },
             title: {
-                text: "Traffic Sources Status. January, 2020"
+                text: "Porcentaje de Procesos por Juzgados"
             },
             accessibility: {
                 announceNewData: {

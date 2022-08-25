@@ -60,7 +60,7 @@
                                             <input type="text" class="form-control" id="email" name="email"  value="{{ $usuario->email }}" />
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    <!--div class="row mb-3">
                                         <label for="inputPhoneNo2" class="col-sm-3 col-form-label">Password</label>
                                         <div class="col-sm-9">
                                             <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password"  value="{{ $usuario->password }}" placeholder="Ingrese password">
@@ -81,7 +81,7 @@
                                             </span>
                                             @endif
                                         </div>
-                                    </div>
+                                    </div-->
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
                                             <h6 class="mb-0">Telefono</h6>

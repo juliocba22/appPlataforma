@@ -122,12 +122,14 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="{{ route('perfil.usuario') }}"><i class="bx bx-user"></i><span>Perfil</span></a>
                         </li>
-                        
+                        <li><a class="dropdown-item" href="{{ route('change.password') }}"><i class="bx bx-user"></i><span>Cambiar Password</span></a>
+                        </li>
                         <li>
                             <div class="dropdown-divider mb-0"></div>
                         </li>
                       
-                        <li><a class="dropdown-item" href="{{ route('logout') }}"
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                           document.getElementById('logout-form').submit();">
                              {{ __('Logout') }}

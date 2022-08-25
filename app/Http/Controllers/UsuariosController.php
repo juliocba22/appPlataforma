@@ -8,7 +8,9 @@ use DB;
 use Illuminate\Support\Facades\Input;
 use Session;
 use Illuminate\Support\Facades\Redirect;
-
+use Mail; 
+use Hash;
+use App\Rules\MatchOldPassword;
 class UsuariosController extends Controller
 {
     public function __construct() {
@@ -94,21 +96,46 @@ class UsuariosController extends Controller
                   return view('admin.usuarios.perfil',compact('usuario'));
               }
 
+              function ChangePasswordForm(){
+
+
+                $usuario = DB::table('users')
+                      ->where('id','=',auth()->user()->id)
+                      ->first();
+                    
+                      return view('admin.usuarios.changePassword',compact('usuario'));
+                  }
+
+
+                  public function submitResetPasswordForm(Request $request)
+      {
+       // dd(Hash::make($request->password));
+       $request->validate([
+        'current_password' => ['required', new MatchOldPassword],
+        'new_password' => ['required'],
+        'new_confirm_password' => ['same:new_password'],
+    ]);
+
+    User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+
+    dd('Password change successfully.');
+      }
+
               function updatePerfil(Request $request , $id){
 
                // dd($id);
                 $validate = $this->validate($request , [
                     'name'=>'required' ,
                     //'email'=>'required | email |unique:users' ,
-                   'password' => 'required | min:6',  //|required_with:password_confirmation|same:password_confirmation'
-                    'password_confirmation' => 'min:6'
+                   //'password' => 'required | min:6',  //|required_with:password_confirmation|same:password_confirmation'
+                   // 'password_confirmation' => 'min:6'
               ]);
             // dd('PASO');
               $user =  User::findOrFail($id);
         
               $user->name=$request->get('name');
              // $user->email=$request->get('email');
-              $user->password=bcrypt($request->get('password'));
+              //$user->password=bcrypt($request->get('password'));
               $user->role_id=auth()->user()->role_id;
               $user->telefono=$request->get('telefono');
               $user->mobile=$request->get('mobile');
